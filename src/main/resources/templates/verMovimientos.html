@@ -176,16 +176,16 @@
     window.onload=function(){
         var msg= [[${mensaje}]];
         if (msg == "saveOK"){
-            Command : toastr["success"]("Empleado registrado con éxito!")
+            Command : toastr["success"]("Movimiento registrado con éxito!")
             }
         else if (msg == "updateOK"){
-            Command : toastr["success"]("Empleado actualizado con éxito!")
+            Command : toastr["success"]("Movimiento actualizado con éxito!")
         }
         else if (msg == "deletedOK"){
-            Command : toastr["error"]("Registro de empleado eliminado con éxito!")
+            Command : toastr["error"]("Movimiento eliminado con éxito!")
         }
         else if (msg == "deletedError"){
-            Command : toastr["error"]("Registro de empleado no ha sido eliminado!")
+            Command : toastr["error"]("Movimiento no ha sido eliminado!")
         }
         toastr.options=
         {
