@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Agregar Movimiento</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- MetisMenu CSS -->
+  <link href="../css/metisMenu.min.css" rel="stylesheet">
+
+  <!-- Timeline CSS -->
+  <link href="../css/timeline.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="../css/startmin.css" rel="stylesheet">
+
+
+  <!-- Custom Fonts -->
+  <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div id="wrapper">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/ViewEmpresas}" >CLEO</a>
+    </div>
+
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+
+    <ul class="nav navbar-nav navbar-left navbar-top-links">
+      <li><a href="#"><i class="fa fa-home fa-fw"></i>Sitio Web</a></li>
+    </ul>
+
+    <ul class="nav navbar-right navbar-top-links">
+
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="fa fa-user fa-fw"></i> [[${#httpServletRequest.remoteUser}]] <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+          <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+          </li>
+          <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li><a th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- /.navbar-top-links -->
+    <div class="navbar-default sidebar" role="navigation">
+      <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+          <li class="sidebar-search">
+            <div class="input-group custom-search-form">
+              <input type="text" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </li>
+          <li>
+            <a th:href="@{/ViewEmpresas}" class="active"><i class="fa fa-home fa-fw"></i>Empresas</a>
+          </li>
+
+          <li>
+            <a href="/ViewEmpleados"><i class="fa fa-users fa-fw"></i> Empleados</a>
+          </li>
+          <li>
+            <a href="/ViewMovimientos"><i class="fa fa-dollar fa-fw"></i> Movimientos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="page-header" style="font-family: 'Segoe UI'">Agregar Movimiento</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="table-responsive">
+                    <div class="col-md-12">
+                        <form th:action="@{/GuardarMovimiento}" th:object="${moveSave}" method="Post">
+                          <!-- concepto -->
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="concepto" class="col-form-label">Concepto del Movimienro</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <select th:field="*{conceptoMovimiento}" class="form-control" id="concepto" required="required">
+                                    <option th:value=1>Papeleria</option>
+                                    <option th:value=2>Servicios Publicos/Privados</option>
+                                    <option th:value=3>Operativos</option>
+                                    <option th:value=4>Caja menor</option>
+                                    <option th:value=5>Tributario</option>
+                                    <option th:value=6>Mobiliario</option>
+                                    <option th:value=7>Maquinaria y Equipo</option>
+                                    <option th:value=8>Nomina</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- monto-->
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="monto" class="col-form-label">Valor del Movimiento</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <input  th:field="*{monto}" type="text" id="monto" class="form-control" aria-describedby="passwordHelpInline" required="required">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--UsuarioResponsable-->
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="usuario" class="col-form-label">Empleado Responsable</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <select th:field="*{usuarioMovimiento}" class="form-control" id="usuario" required="required" readonly>
+                                    <option th:text="${#httpServletRequest.remoteUser}" th:value="${idEmpleado}"></option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <!--Campo para Fecha-->
+                              <div class="col-md-6">
+                                <div class="form-group col-md-12">
+                                  <div class="col-md-6">
+                                    <label for="fecha" class="col-form-label">Fecha del Movimiento</label>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <input type="date" th:field="*{fecha}" class="form-control" id="fecha" required="required" readonly></div>
+                                </div>
+                                </div>
+                            </div>
+                          <div class="modal-footer">
+                              <button class="btn btn-primary" >Guardar Movimiento</button>
+                              <a href="javascript: history.go(-1)" class="btn btn-danger" role="button">Cancelar</a>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../js/metisMenu.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+<script src="../js/startmin.js"></script>
+<script th:inline="javascript">
+  window.onload=function(){
+  document.getElementById("fecha").value=new Date().toJSON().slice(0,10).replace(/-/g,'-');
+  }
+</script>
+</body>
+</html>

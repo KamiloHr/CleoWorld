@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Agregar Empleado</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- MetisMenu CSS -->
+  <link href="../css/metisMenu.min.css" rel="stylesheet">
+
+  <!-- Timeline CSS -->
+  <link href="../css/timeline.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="../css/startmin.css" rel="stylesheet">
+
+
+  <!-- Custom Fonts -->
+  <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div id="wrapper">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/ViewEmpresas}" >CLEO</a>
+    </div>
+
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+
+    <ul class="nav navbar-nav navbar-left navbar-top-links">
+      <li><a href="#"><i class="fa fa-home fa-fw"></i>Sitio Web</a></li>
+    </ul>
+
+    <ul class="nav navbar-right navbar-top-links">
+
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <i class="fa fa-user fa-fw"></i>[[${#httpServletRequest.remoteUser}]]<b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+          <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+          </li>
+          <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li><a th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation">
+      <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+          <li class="sidebar-search">
+            <div class="input-group custom-search-form">
+              <input type="text" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </li>
+          <li>
+            <a th:href="@{/ViewEmpresas}" class="active"><i class="fa fa-home fa-fw"></i>Empresas</a>
+          </li>
+
+          <li>
+            <a href="/ViewEmpleados"><i class="fa fa-users fa-fw"></i> Empleados</a>
+          </li>
+          <li>
+            <a href="/ViewMovimientos"><i class="fa fa-dollar fa-fw"></i> Movimientos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="page-header" style="font-family: 'Segoe UI'">Agregar Empleados</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="table-responsive">
+                    <div class="col-md-12">
+                        <form th:action="@{/GuardarEmpleado}" th:object="${saveEmpleado}" method="Post">
+                          <!-- nombre-->
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="nombre" class="col-form-label">Nombre del usuario</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <input  th:field="*{nombre}" type="text" id="nombre" class="form-control" aria-describedby="passwordHelpInline" required="required">
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Correo-->
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="correo" class="col-form-label">Correo Del Usuario</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <input  th:field="*{correo}" type="text" id="correo" class="form-control" aria-describedby="passwordHelpInline" required="required">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--Password-->
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="password" class="col-form-label">Contraseña del Ususario</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <input th:field="*{password}" type="password" id="password" class="form-control" aria-describedby="passwordHelpInline" required="required">
+                                </div>
+                              </div>
+                            </div>
+                            <!--Empresa-->
+                              <div class="col-md-6">
+                                <div class="form-group col-md-12">
+                                  <div class="col-md-6">
+                                    <label for="empresa" class="col-form-label">Empresa del Ususario</label>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <select th:field="*{empresaAsociado}" type="text" id="empresa" class="form-control" aria-describedby="passwordHelpInline" required="required">
+                                      <option th:each="empresa:${listaEmpresas}" th:text="${empresa.nombre}" th:value="${empresa.id}"></option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Rol-->
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="rol" class="col-form-label">Rol</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <select th:field="*{rolEmpleado}" type="text" id="rol" class="form-control" aria-describedby="passwordHelpInline" required="required">
+                                    <option th:value="ROLE_ADMIN">Administrativo</option>
+                                    <option th:value="ROLE_USER">Operativo</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          <!-- Estado-->
+                            <div class="col-md-6">
+                              <div class="form-group col-md-12">
+                                <div class="col-md-6">
+                                  <label for="estado" class="col-form-label">Estado</label>
+                                </div>
+                                <div class="col-md-12">
+                                  <select th:field="*{estado}" type="text" id="estado" class="form-control" aria-describedby="passwordHelpInline" required="required">
+                                    <option th:value="1">Activo</option>
+                                    <option th:value="0">Inactivo</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button class="btn btn-primary" >Guardar Usuario</button>
+                              <a href="javascript: history.go(-1)" class="btn btn-danger" role="button">Cancelar</a>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../js/metisMenu.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+<script src="../js/startmin.js"></script>
+
+</body>
+</html>

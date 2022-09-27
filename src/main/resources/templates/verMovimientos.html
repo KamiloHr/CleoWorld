@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Movimientos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../css/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="../css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/startmin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/ViewEmpresas}" >CLEO</a>
+        </div>
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <ul class="nav navbar-nav navbar-left navbar-top-links">
+            <li><a href="#"><i class="fa fa-home fa-fw"></i>WebsitioCleo</a></li>
+        </ul>
+
+        <ul class="nav navbar-right navbar-top-links">
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> [[${#httpServletRequest.remoteUser}]] <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                </span>
+                        </div>
+                    </li>
+                    <li>
+                        <a th:href="@{/ViewEmpresas}" class="active"><i class="fa fa-home fa-fw"></i>Empresas</a>
+                    </li>
+
+                    <li>
+                        <a href="/ViewEmpleados"><i class="fa fa-users fa-fw"></i> Empleados</a>
+                    </li>
+                    <li>
+                        <a href="/ViewMovimientos"><i class="fa fa-dollar fa-fw"></i> Movimientos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="font-family: 'Segoe UI'">Movimientos</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive" >
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn " style="margin-bottom:20px;margin-top:5px;background:#63c562"><a th:href="@{/AgregarMovimientos}" style="text-decoration:none;color:white;">Agregar Nuevo Movimiento</a></button>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <table class="table table-sm">
+                                                    <tr class="table-primary" style="background:#c2f5f0;">
+                                                        <th>ID</th><th>Valor</th><th>Concepto</th><th>Usuario Responsable</th><th>Fecha del Movimiento</th><th>Editar</th><th>Eliminar</th>
+                                                    </tr>
+                                                    <tr th:each="movimiento: ${moveList}">
+                                                        <td th:text="${movimiento.id}"></td>
+                                                        <td class="text-left" th:text="${#numbers.formatCurrency(movimiento.monto)}"></td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='1'}">Papeleria</td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='2'}">Servicios Publicos/privados</td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='3'}">Operativos</td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='4'}">Caja Menor</td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='5'}">Tributario</td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='6'}">Mobiliario</td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='7'}">Maquinaria y Equipo</td>
+                                                        <td th:if="${movimiento.conceptoMovimiento=='8'}">Nomina</td>
+                                                        <td th:text="${movimiento.usuarioMovimiento.nombre}"></td>
+                                                        <td th:text="${#dates.format(movimiento.fecha, 'dd/MM/yyyy')}"></td>
+                                                        <td><button type="button" class="btn" style="background:#77c1f9"><a th:href="@{/EditarMovimiento/{id}(id=${movimiento.id})}" title="Editar" style="text-decoration:none;color:white;">Editar</a></button></td>
+                                                        <td><button type="button" class="btn " style="background:#bc4e3b"><a th:href="@{/EliminarMovimiento/{id}(id=${movimiento.id})}" title="Eliminar" style="text-decoration:none;color:white;">Eliminar</a></button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="col-md-3" for="SumaMontos">Total Movimientos:</label>
+                                                <div class="col-md-6">
+                                                    <p th:text="${#numbers.formatCurrency(SumaMontos)}" id="SumaMontos"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../js/metisMenu.min.js"></script>
+
+
+
+<!-- Custom Theme JavaScript -->
+<script src="../js/startmin.js"></script>
+
+</body>
+
+<script th:inline="javascript">
+    window.onload=function(){
+        var msg= [[${mensaje}]];
+        if (msg == "saveOK"){
+            Command : toastr["success"]("Empleado registrado con éxito!")
+            }
+        else if (msg == "updateOK"){
+            Command : toastr["success"]("Empleado actualizado con éxito!")
+        }
+        else if (msg == "deletedOK"){
+            Command : toastr["error"]("Registro de empleado eliminado con éxito!")
+        }
+        else if (msg == "deletedError"){
+            Command : toastr["error"]("Registro de empleado no ha sido eliminado!")
+        }
+        toastr.options=
+        {
+            "positionClass": "toast-top-right",
+            "showDuration":"50",
+            "showMethod":"fadeIn",
+            "hideMethod":"fadeOut",
+        }
+    }
+</script>
+
+</html>
