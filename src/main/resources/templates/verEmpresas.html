@@ -167,16 +167,16 @@
     window.onload=function(){
         var msg= [[${mensaje}]];
         if (msg == "saveOK"){
-            Command : toastr["success"]("Empleado registrado con éxito!")
+            Command : toastr["success"]("Empresa registrado con éxito!")
             }
         else if (msg == "updateOK"){
-            Command : toastr["success"]("Empleado actualizado con éxito!")
+            Command : toastr["success"]("Empresa actualizado con éxito!")
         }
         else if (msg == "deletedOK"){
-            Command : toastr["error"]("Registro de empleado eliminado con éxito!")
+            Command : toastr["error"]("Registro de empresa eliminado con éxito!")
         }
         else if (msg == "deletedError"){
-            Command : toastr["error"]("Registro de empleado no ha sido eliminado!")
+            Command : toastr["error"]("Registro de empresa no ha sido eliminado!")
         }
         toastr.options=
         {
